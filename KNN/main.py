@@ -14,8 +14,8 @@ def ReadFiles():
 def DivideTrainAndTest(df):
 	train = 0.7
 	train_size = (int)(df.shape[0]*0.7)
-	df_train = df[0:train_size]
-	df_test = df[train_size:]
+	df_train = df[0:train_size].copy()
+	df_test = df[train_size:].copy()
 	df_train_Class = np.array(df_train['Class'])
 	df_test_Class = np.array(df_test['Class'])
 	df_test.drop('Class',1,inplace=True)

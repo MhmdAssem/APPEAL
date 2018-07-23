@@ -43,7 +43,7 @@ def KNN(df_train,df_train_Class,df_test,df_test_Class):
 	for k in range(1,9):
 		Total_Trials =0
 		Right_Trials =0
-		Predicted = np.array([-1])
+		#Predicted = np.array([-1]) #for purpose of display in file
 		for row_test in range(0,df_test.shape[0]):
 			Map={}#(distance,class):occuerance
 			Eq_distance =0.0

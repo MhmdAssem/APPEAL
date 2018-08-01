@@ -93,8 +93,6 @@ def MatchRules(row,Rules,StartingFeature=''):
 	
 	for key in Rules:
 		if key =='Class':
-			global lovly
-			lovly+=1
 			return Rules[key]
 		if StartingFeature == '':			
 			return MatchRules(row,Rules[key],key)

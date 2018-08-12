@@ -6,7 +6,7 @@ import collections
 #df -> dataFrame
 # comments to be Removed
 lovly=0
-def ReadFiles():
+def ReadFiles(): # Read Data and remove any missing data 
 	df = pd.read_csv('breast-cancer-wisconsin.data.txt')
 	df.drop(['id'],1,inplace=True)
 	df = df.replace('?',np.NaN)
@@ -15,7 +15,7 @@ def ReadFiles():
 	#print(df.isnull().values.any())
 	return df
 
-def DivideTrainAndTest(df):
+def DivideTrainAndTest(df): # Divide Data to testing and Training
 	train = 0.7
 	train_size = (int)(df.shape[0]*0.7)
 	df_train = df[0:train_size].copy()
@@ -28,7 +28,7 @@ def DivideTrainAndTest(df):
 	#df_test = np.array(df_test)
 	return df_train,df_test
 
-def GetEntropy(df):
+def GetEntropy(df): # Calculate Entropy of Class Labels 
 	Unique = pd.unique(df['Class'])
 	Entropy=0.0
 	for i in Unique:
@@ -38,14 +38,14 @@ def GetEntropy(df):
 		Entropy = Entropy + (-1.0 * NumberOfRepeat/df.shape[0]*np.log2(NumberOfRepeat/df.shape[0]))
 	return Entropy
 	
-def SplitAndGetEntrpoy(df,UniqueValuesPerFeature,feature):
+def SplitAndGetEntrpoy(df,UniqueValuesPerFeature,feature):#Calculate Entropy for the whole feature to choose which feature to split upon
 	EntropyPerFeature=0.0
 	for value in UniqueValuesPerFeature:
 		df_feature = df.groupby(feature).get_group(value)
 		EntropyPerFeature = EntropyPerFeature + (df.groupby(feature).get_group(value).count()[0]/df.shape[0])*GetEntropy(df_feature)
 	return EntropyPerFeature
 	
-def GenerateDT(df,ParentEntropy = 1):
+def GenerateDT(df,ParentEntropy = 1):# Decision Tree Algo
 	
 	MaxGain = -1.0
 	FeatureSplit = ''

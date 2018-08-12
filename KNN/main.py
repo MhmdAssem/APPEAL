@@ -5,13 +5,13 @@ import collections
 
 #df -> dataFrame
 
-def ReadFiles():
+def ReadFiles(): # Read Data and replace Missing Data 
 	df = pd.read_csv('breast-cancer-wisconsin.data.txt')
 	df.drop(['id'],1,inplace=True)
 	df.replace('?',-9999999,inplace=True)#Too Big Value :D
 	return df
 
-def DivideTrainAndTest(df):
+def DivideTrainAndTest(df):#Divide Data to testing and training 
 	train = 0.7
 	train_size = (int)(df.shape[0]*0.7)
 	df_train = df[0:train_size].copy()
@@ -24,7 +24,7 @@ def DivideTrainAndTest(df):
 	df_test = np.array(df_test)
 	return df_train,df_train_Class,df_test,df_test_Class
 
-def GetPrediction(Map,k):
+def GetPrediction(Map,k): # Get The Max Repeated Prediction 
 	Max_Repeat =0
 	predicted_Label=''
 	Min_Distance =1000000.0
@@ -38,7 +38,7 @@ def GetPrediction(Map,k):
 	return predicted_Label	
 	
 	
-def KNN(df_train,df_train_Class,df_test,df_test_Class):
+def KNN(df_train,df_train_Class,df_test,df_test_Class): # KNN-Algo
 
 	for k in range(1,9):
 		Total_Trials =0
@@ -66,8 +66,6 @@ def KNN(df_train,df_train_Class,df_test,df_test_Class):
 				Right_Trials = Right_Trials+1
 			Total_Trials= Total_Trials+1
 		print(k,Right_Trials/Total_Trials)
-		#print(Predicted)
-					
 					
 					
 df = ReadFiles()
